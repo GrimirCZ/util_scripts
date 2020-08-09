@@ -5,12 +5,14 @@ if [ "$1" = "" ]; then
   exit 1
 fi
 
-nmcli connection show "$1" > /dev/null 2>&1
+MSG=$(nmcli connection show "$1" 2>&1)
+RT_CODE=$?
 
-if [ "$?" -gt 0 ]; then
-  echo "Network connection '$1' not found"
-  exit 1
+if [ $RT_CODE -gt 0 ]; then
+  echo $MSG
+  exit $RT_CODE
 fi
 
 nmcli connection show "$1" -s | grep psk: | awk '{print $2}'
+exit $?
 
