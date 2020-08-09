@@ -1,0 +1,16 @@
+#!/bin/env bash
+
+if [ "$1" = "" ]; then
+  echo "Usage: $0 <Network_Name>"
+  exit 1
+fi
+
+nmcli connection show "$1" > /dev/null 2>&1
+
+if [ "$?" -gt 0 ]; then
+  echo "Network connection '$1' not found"
+  exit 1
+fi
+
+nmcli connection show "$1" -s | grep psk: | awk '{print $2}'
+
