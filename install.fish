@@ -5,7 +5,8 @@ set wd (pwd)
 
 if test "$wd" = "$dst"
 
-  echo "Skipping creation of $dst and copying scripts to $dst, already at $dst."
+  echo "Skipping creation of $dst, already at $dst."
+  echo "Skipping copying scripts to $dst, already at $dst."
 else
 
   echo "Creating $dst"
